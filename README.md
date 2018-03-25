@@ -1,6 +1,6 @@
 # modware-identity
-[dictyBase](http://dictybase.org) **API** server to manage third party login
-from different providers(orcid,google etc.). The API server supports both gRPC
+[dictyBase](http://dictybase.org) **API** server to manage authorization
+from third party providers(orcid,google etc.). The API server supports both gRPC
 and HTTP/JSON protocol for data exchange.
 
 ## API
