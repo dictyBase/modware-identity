@@ -9,7 +9,7 @@ import (
 	"github.com/dictyBase/go-genproto/dictybaseapis/api/jsonapi"
 
 	driver "github.com/arangodb/go-driver"
-	"github.com/arangodb/go-driver/http"
+	"github.com/arangodb/go-driver/vst"
 	"github.com/dictyBase/go-genproto/dictybaseapis/identity"
 	"github.com/dictyBase/modware-identity/storage"
 )
@@ -33,10 +33,10 @@ type arangoSource struct {
 
 func NewDataSource(user, pass, database, host, port string) (storage.DataSource, error) {
 	var ds *arangoSource
-	conn, err := http.NewConnection(
-		http.ConnectionConfig{
+	conn, err := vst.NewConnection(
+		vst.ConnectionConfig{
 			Endpoints: []string{
-				fmt.Sprintf("%s:%s", host, port),
+				fmt.Sprintf("vst://%s:%s", host, port),
 			},
 		})
 	if err != nil {
@@ -88,8 +88,49 @@ func (ds *arangoSource) GetIdentity(r *jsonapi.IdRequest) (storage.Result, error
 	}, nil
 }
 
+func (ds *arangoSource) GetIdentityWithAttr(r *jsonapi.IdRequest, fields []string) (storage.Result, error) {
+	query := `FOR d in @@collection
+				FILTER d._key == @id
+				RETURN KEEP(d,["_id","_key","_rev", %s]`
+	bindVars := map[string]interface{}{
+		"collection": collection,
+		"identifier": r.Identifier,
+		"provider":   r.Provider,
+	}
+	cursor, err := ds.database.Query(nil, query, bindVars)
+	if err != nil {
+		return &arangoResult{
+			noResult: true,
+		}, err
+	}
+	defer cursor.Close()
+	doc := &identityDoc{}
+	meta, err := cursor.ReadDocument(nil, doc)
+	if err != nil {
+		if driver.IsNotFound(err) {
+			return &arangoResult{
+				noResult: true,
+			}, nil
+		}
+		return &arangoResult{
+			noResult: true,
+		}, err
+	}
+	id, err := strconv.ParseInt(meta.Key, 10, 64)
+	if err != nil {
+		return &arangoResult{
+			noResult: true,
+		}, err
+	}
+	return &arangoResult{
+		doc:      doc,
+		id:       id,
+		noResult: false,
+	}, nil
+}
+
 func (ds *arangoSource) GetProviderIdentity(r *identity.IdentityProviderReq) (storage.Result, error) {
-	query := `FOR d in my @@collection
+	query := `FOR d in @@collection
 				FILTER d.identifier == @identifier
 				AND d.provider == @provider
 				RETURN d`
@@ -184,7 +225,7 @@ func (ds *arangoSource) DeleteIdentity(r *jsonapi.IdRequest) (bool, error) {
 
 func (ds *arangoSource) HasProviderIdentity(r *identity.IdentityProviderReq) (bool, error) {
 	ctx := driver.WithQueryCount(context.Background())
-	query := `FOR d in my @@collection
+	query := `FOR d in @@collection
 				FILTER d.identifier == @identifier
 				AND d.provider == @provider
 				RETURN d`
