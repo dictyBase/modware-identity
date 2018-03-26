@@ -93,9 +93,9 @@ func (ds *arangoSource) GetIdentityWithAttr(r *jsonapi.IdRequest, fields []strin
 				FILTER d._key == @id
 				RETURN KEEP(d,["_id","_key","_rev", %s]`
 	bindVars := map[string]interface{}{
-		"collection": collection,
-		"identifier": r.Identifier,
-		"provider":   r.Provider,
+		"@collection": collection,
+		"identifier":  r.Identifier,
+		"provider":    r.Provider,
 	}
 	cursor, err := ds.database.Query(nil, query, bindVars)
 	if err != nil {
@@ -135,9 +135,9 @@ func (ds *arangoSource) GetProviderIdentity(r *identity.IdentityProviderReq) (st
 				AND d.provider == @provider
 				RETURN d`
 	bindVars := map[string]interface{}{
-		"collection": collection,
-		"identifier": r.Identifier,
-		"provider":   r.Provider,
+		"@collection": collection,
+		"identifier":  r.Identifier,
+		"provider":    r.Provider,
 	}
 	cursor, err := ds.database.Query(nil, query, bindVars)
 	if err != nil {
@@ -176,14 +176,14 @@ func (ds *arangoSource) CreateIdentity(attr *identity.NewIdentityAttributes) (st
 					identifier: @identifier,
 					provider: @provider,
 					user_id: @user_id,
-					created_at: DATE_NOW(),
-					updated_at: DATE_NOW()
+					created_at: DATE_ISO8601(DATE_NOW()),
+					updated_at: DATE_ISO8601(DATE_NOW())
 			   } IN @@collection RETURN NEW`
 	bindVars := map[string]interface{}{
-		"collection": collection,
-		"identifier": attr.Identifier,
-		"provider":   attr.Provider,
-		"user_id":    attr.UserId,
+		"@collection": collection,
+		"identifier":  attr.Identifier,
+		"provider":    attr.Provider,
+		"user_id":     attr.UserId,
 	}
 	cursor, err := ds.database.Query(nil, insert, bindVars)
 	if err != nil {
@@ -230,9 +230,9 @@ func (ds *arangoSource) HasProviderIdentity(r *identity.IdentityProviderReq) (bo
 				AND d.provider == @provider
 				RETURN d`
 	bindVars := map[string]interface{}{
-		"collection": collection,
-		"identifier": r.Identifier,
-		"provider":   r.Provider,
+		"@collection": collection,
+		"identifier":  r.Identifier,
+		"provider":    r.Provider,
 	}
 	cursor, err := ds.database.Query(ctx, query, bindVars)
 	if err != nil {
