@@ -4,8 +4,10 @@ import (
 	"context"
 	"fmt"
 	"strconv"
+	"strings"
 	"time"
 
+	"github.com/dictyBase/apihelpers/aphcollection"
 	"github.com/dictyBase/go-genproto/dictybaseapis/api/jsonapi"
 
 	driver "github.com/arangodb/go-driver"
@@ -89,13 +91,21 @@ func (ds *arangoSource) GetIdentity(r *jsonapi.IdRequest) (storage.Result, error
 }
 
 func (ds *arangoSource) GetIdentityWithAttr(r *jsonapi.IdRequest, fields []string) (storage.Result, error) {
-	query := `FOR d in @@collection
+	bindParams := aphcollection.MapIdx(
+		fields,
+		func(s, i) { return fmt.Sprintf("@attr%d", i) },
+	)
+	query := fmt.Sprintf(`
+				FOR d in @@collection
 				FILTER d._key == @id
-				RETURN KEEP(d,["_id","_key","_rev", %s]`
+				RETURN KEEP(d,["_id","_key","_rev", %s])`,
+		strings.Join(bindParams, ","),
+	)
 	bindVars := map[string]interface{}{
 		"@collection": collection,
-		"identifier":  r.Identifier,
-		"provider":    r.Provider,
+	}
+	for i, v := range bindParams {
+		bindVars[v] = fields[i]
 	}
 	cursor, err := ds.database.Query(nil, query, bindVars)
 	if err != nil {

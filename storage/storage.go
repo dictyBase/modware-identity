@@ -9,6 +9,7 @@ type DataSource interface {
 	HasProviderIdentity(*identity.IdentityProviderReq) (bool, error)
 	HasIdentity(*jsonapi.IdRequest) (bool, error)
 	GetIdentity(*jsonapi.IdRequest) (Result, error)
+	GetIdentityWithAttr(*jsonapi.IdRequest, []string) (Result, error)
 	GetProviderIdentity(*identity.IdentityProviderReq) (Result, error)
 	CreateIdentity(*identity.NewIdentityAttributes) (Result, error)
 	DeleteIdentity(*jsonapi.IdRequest) (bool, error)
