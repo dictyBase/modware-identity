@@ -2,6 +2,7 @@ package nats
 
 import (
 	"context"
+	"fmt"
 	"time"
 
 	"github.com/dictyBase/modware-identity/message"
@@ -15,8 +16,8 @@ type natsRequest struct {
 	econn *gnats.Conn
 }
 
-func NewRequest(url string, options ...gnats.Option) (message.Request, error) {
-	nc, err := gnats.Connect(url, options...)
+func NewRequest(host, port string, options ...gnats.Option) (message.Request, error) {
+	nc, err := gnats.Connect(fmt.Sprintf("nats://%s:%s", host, port), options...)
 	if err != nil {
 		return &natsRequest{}, err
 	}
