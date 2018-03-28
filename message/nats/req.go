@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/dictyBase/go-genproto/dictybaseapis/pubsub"
 	"github.com/dictyBase/modware-identity/message"
 	gnats "github.com/nats-io/go-nats"
 
@@ -13,7 +14,7 @@ import (
 )
 
 type natsRequest struct {
-	econn *gnats.Conn
+	econn *gnats.EncodedConn
 }
 
 func NewRequest(host, port string, options ...gnats.Option) (message.Request, error) {
@@ -21,21 +22,21 @@ func NewRequest(host, port string, options ...gnats.Option) (message.Request, er
 	if err != nil {
 		return &natsRequest{}, err
 	}
-	ec, err := gnats.NewEncodedConn(c, protobuf.PROTOBUF_ENCODER)
+	ec, err := gnats.NewEncodedConn(nc, protobuf.PROTOBUF_ENCODER)
 	if err != nil {
 		return &natsRequest{}, err
 	}
 	return &natsRequest{econn: ec}, nil
 }
 
-func (n *natsRequest) Request(subj string, r *jsonapi.IdRequest, timeout time.Duration) (*message.Reply, error) {
-	reply := &message.Reply{}
+func (n *natsRequest) Request(subj string, r *jsonapi.IdRequest, timeout time.Duration) (*pubsub.Reply, error) {
+	reply := &pubsub.Reply{}
 	err := n.econn.Request(subj, r, reply, timeout)
 	return reply, err
 }
 
-func (n *natsRequest) RequestWithContext(ctx context.Context, subj string, r *jsonapi.IdRequest) (*message.Reply, error) {
-	reply := &message.Reply{}
+func (n *natsRequest) RequestWithContext(ctx context.Context, subj string, r *jsonapi.IdRequest) (*pubsub.Reply, error) {
+	reply := &pubsub.Reply{}
 	err := n.econn.RequestWithContext(ctx, subj, r, reply)
 	return reply, err
 }
