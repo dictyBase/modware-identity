@@ -117,7 +117,7 @@ func (s *IdentityService) DeleteIdentity(ctx context.Context, r *jsonapi.IdReque
 	return &empty.Empty{}, nil
 }
 
-func (s *IdentityService) Healthz(ctx context.Context, r jsonapi.HealthzIdRequest) (*empty.Empty, error) {
+func (s *IdentityService) Healthz(ctx context.Context, r *jsonapi.HealthzIdRequest) (*empty.Empty, error) {
 	return &empty.Empty{}, nil
 }
 

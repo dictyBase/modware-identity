@@ -93,7 +93,7 @@ func (ds *arangoSource) GetIdentity(r *jsonapi.IdRequest) (storage.Result, error
 func (ds *arangoSource) GetIdentityWithAttr(r *jsonapi.IdRequest, fields []string) (storage.Result, error) {
 	bindParams := aphcollection.MapIdx(
 		fields,
-		func(s, i) { return fmt.Sprintf("@attr%d", i) },
+		func(s string, i int) string { return fmt.Sprintf("@attr%d", i) },
 	)
 	query := fmt.Sprintf(`
 				FOR d in @@collection
