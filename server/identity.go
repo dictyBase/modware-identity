@@ -2,6 +2,7 @@ package server
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/dictyBase/apihelpers/aphgrpc"
 	"github.com/dictyBase/go-genproto/dictybaseapis/api/jsonapi"
@@ -50,14 +51,46 @@ func (s *IdentityService) GetIdentityFromProvider(ctx context.Context, r *identi
 }
 
 func (s *IdentityService) GetIdentity(ctx context.Context, r *jsonapi.IdRequest) (*identity.Identity, error) {
-	return &identity.Identity{}, nil
+	rs, err := s.storage.GetIdentity(r)
+	if err != nil {
+		return &identity.Identity{}, aphgrpc.HandleGetError(ctx, err)
+	}
+	if rs.NotFound() {
+		return &identity.Identity{}, aphgrpc.HandleNotFoundError(ctx, err)
+	}
+	return s.buildResource(rs.GetId(), rs.GetAttributes()), nil
 }
 
 func (s *IdentityService) CreateIdentity(ctx context.Context, r *identity.CreateIdentityReq) (*identity.Identity, error) {
-	return &identity.Identity{}, nil
+	found, err := s.storage.HasProviderIdentity(
+		&identity.IdentityProviderReq{
+			Identifier: r.Data.Attributes.Identifier,
+			Provider:   r.Data.Attributes.Provider,
+		})
+	if err != nil {
+		return &identity.Identity{}, aphgrpc.HandleGenericError(ctx, err)
+	}
+	if found {
+		return &identity.Identity{}, aphgrpc.HandleExistError(ctx, err)
+	}
+	rs, err := s.storage.CreateIdentity(r.Data.Attributes)
+	if err != nil {
+		return &identity.Identity{}, aphgrpc.HandleInsertError(ctx, err)
+	}
+	return s.buildResource(rs.GetId(), rs.GetAttributes()), nil
 }
 
 func (s *IdentityService) DeleteIdentity(ctx context.Context, r *jsonapi.IdRequest) (*empty.Empty, error) {
+	found, err := s.storage.DeleteIdentity(r)
+	if err != nil {
+		return &empty.Empty{}, aphgrpc.HandleDeleteError(ctx, err)
+	}
+	if !found {
+		return &empty.Empty{}, aphgrpc.HandleNotFoundError(
+			ctx,
+			fmt.Errorf("cannot find %d for delete", r.Id),
+		)
+	}
 	return &empty.Empty{}, nil
 }
 
