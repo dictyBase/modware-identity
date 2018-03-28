@@ -10,6 +10,8 @@ import (
 	"github.com/dictyBase/modware-identity/message"
 	"github.com/dictyBase/modware-identity/storage"
 	"github.com/golang/protobuf/ptypes/empty"
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/metadata"
 )
 
 type IdentityService struct {
@@ -100,6 +102,7 @@ func (s *IdentityService) CreateIdentity(ctx context.Context, r *identity.Create
 	if err != nil {
 		return &identity.Identity{}, aphgrpc.HandleInsertError(ctx, err)
 	}
+	grpc.SetTrailer(ctx, metadata.Pairs("method", "POST"))
 	return s.buildResource(rs.GetId(), rs.GetAttributes()), nil
 }
 
