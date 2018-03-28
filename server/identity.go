@@ -22,6 +22,9 @@ func defaultOptions() *aphgrpc.ServiceOptions {
 	return &aphgrpc.ServiceOptions{
 		PathPrefix: "identities",
 		Resource:   "identities",
+		Topics: map[string]string{
+			"userExists": "UserService.Exists",
+		},
 	}
 }
 
@@ -62,16 +65,36 @@ func (s *IdentityService) GetIdentity(ctx context.Context, r *jsonapi.IdRequest)
 }
 
 func (s *IdentityService) CreateIdentity(ctx context.Context, r *identity.CreateIdentityReq) (*identity.Identity, error) {
+	emptyIdn := new(identity.Identity)
 	found, err := s.storage.HasProviderIdentity(
 		&identity.IdentityProviderReq{
 			Identifier: r.Data.Attributes.Identifier,
 			Provider:   r.Data.Attributes.Provider,
 		})
 	if err != nil {
-		return &identity.Identity{}, aphgrpc.HandleGenericError(ctx, err)
+		return emptyIdn, aphgrpc.HandleGenericError(ctx, err)
 	}
 	if found {
-		return &identity.Identity{}, aphgrpc.HandleExistError(ctx, err)
+		return emptyIdn, aphgrpc.HandleExistError(ctx, err)
+	}
+	// Check for presence of user
+	// by messaging through user service
+	reply, err := s.request.RequestWithContext(
+		context.Background(),
+		s.Topics["userExists"],
+		&jsonapi.IdRequest{Id: r.Data.Attributes.UserId},
+	)
+	if err != nil {
+		return emptyIdn, aphgrpc.HandleGenericError(ctx, err)
+	}
+	if reply.Status != nil {
+		return emptyIdn, aphgrpc.HandleMessagingError(ctx, reply.Status)
+	}
+	if !reply.Exist {
+		return emptyIdn, aphgrpc.HandleNotFoundError(
+			ctx,
+			fmt.Errorf("user id %d not found", r.Data.Attributes.UserId),
+		)
 	}
 	rs, err := s.storage.CreateIdentity(r.Data.Attributes)
 	if err != nil {
