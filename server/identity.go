@@ -7,6 +7,7 @@ import (
 	"github.com/dictyBase/apihelpers/aphgrpc"
 	"github.com/dictyBase/go-genproto/dictybaseapis/api/jsonapi"
 	"github.com/dictyBase/go-genproto/dictybaseapis/identity"
+	"github.com/dictyBase/go-genproto/dictybaseapis/pubsub"
 	"github.com/dictyBase/modware-identity/message"
 	"github.com/dictyBase/modware-identity/storage"
 	"github.com/golang/protobuf/ptypes/empty"
@@ -84,7 +85,7 @@ func (s *IdentityService) CreateIdentity(ctx context.Context, r *identity.Create
 	reply, err := s.request.RequestWithContext(
 		context.Background(),
 		s.Topics["userExists"],
-		&jsonapi.IdRequest{Id: r.Data.Attributes.UserId},
+		&pubsub.IdRequest{Id: r.Data.Attributes.UserId},
 	)
 	if err != nil {
 		return emptyIdn, aphgrpc.HandleGenericError(ctx, err)
