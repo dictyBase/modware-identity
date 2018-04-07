@@ -8,6 +8,7 @@ import (
 
 	driver "github.com/arangodb/go-driver"
 	"github.com/dictyBase/apihelpers/aphdocker"
+	"github.com/dictyBase/go-genproto/dictybaseapis/api/jsonapi"
 	"github.com/dictyBase/go-genproto/dictybaseapis/identity"
 )
 
@@ -19,7 +20,7 @@ func TestMain(m *testing.M) {
 	if err != nil {
 		log.Fatalf("Could not connect to docker: %s", err)
 	}
-	aresource, err := adocker.Run()
+	_, err = adocker.Run()
 	if err != nil {
 		log.Fatalf("Could not start resource: %s", err)
 	}
@@ -42,9 +43,9 @@ func TestMain(m *testing.M) {
 	ahost = adocker.GetIP()
 	aport = adocker.GetPort()
 	code := m.Run()
-	if err = adocker.Purge(aresource); err != nil {
-		log.Fatalf("unable to remove arangodb container %s\n", err)
-	}
+	//if err = adocker.Purge(aresource); err != nil {
+	//log.Fatalf("unable to remove arangodb container %s\n", err)
+	//}
 	os.Exit(code)
 }
 
@@ -71,5 +72,27 @@ func TestCreateIdentity(t *testing.T) {
 	}
 	if attr.Identifier != "hello@gmail.com" {
 		t.Fatalf("expected identifier does not match %s", attr.Identifier)
+	}
+}
+
+func TestHasIdentity(t *testing.T) {
+	ds, err := NewDataSource(auser, apass, adb, ahost, aport)
+	if err != nil {
+		t.Fatalf("cannot connect to datasource %s", err)
+	}
+	res, err := ds.CreateIdentity(&identity.NewIdentityAttributes{
+		Identifier: "janto@gmail.com",
+		Provider:   "google",
+		UserId:     25,
+	})
+	if err != nil {
+		t.Fatal("could not create new identity")
+	}
+	found, err := ds.HasIdentity(&jsonapi.IdRequest{Id: res.GetId()})
+	if err != nil {
+		t.Fatalf("error in finding id %d %s", res.GetId(), err)
+	}
+	if !found {
+		t.Fatalf("could not find id %d in storage", res.GetId())
 	}
 }
