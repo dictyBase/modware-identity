@@ -20,7 +20,7 @@ func TestMain(m *testing.M) {
 	if err != nil {
 		log.Fatalf("Could not connect to docker: %s", err)
 	}
-	_, err = adocker.Run()
+	aresource, err = adocker.Run()
 	if err != nil {
 		log.Fatalf("Could not start resource: %s", err)
 	}
@@ -43,9 +43,9 @@ func TestMain(m *testing.M) {
 	ahost = adocker.GetIP()
 	aport = adocker.GetPort()
 	code := m.Run()
-	//if err = adocker.Purge(aresource); err != nil {
-	//log.Fatalf("unable to remove arangodb container %s\n", err)
-	//}
+	if err = adocker.Purge(aresource); err != nil {
+		log.Fatalf("unable to remove arangodb container %s\n", err)
+	}
 	os.Exit(code)
 }
 

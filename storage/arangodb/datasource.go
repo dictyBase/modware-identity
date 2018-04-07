@@ -256,5 +256,5 @@ func (ds *arangoSource) HasProviderIdentity(r *identity.IdentityProviderReq) (bo
 }
 
 func (ds *arangoSource) HasIdentity(r *jsonapi.IdRequest) (bool, error) {
-	return ds.collection.DocumentExists(nil, string(r.Id))
+	return ds.collection.DocumentExists(context.Background(), strconv.FormatInt(r.Id, 10))
 }
