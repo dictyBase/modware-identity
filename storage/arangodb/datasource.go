@@ -103,9 +103,10 @@ func (ds *arangoSource) GetIdentityWithAttr(r *jsonapi.IdRequest, fields []strin
 	)
 	bindVars := map[string]interface{}{
 		"@collection": collection,
+		"id":          strconv.FormatInt(r.Id, 10),
 	}
 	for i, v := range bindParams {
-		bindVars[v] = fields[i]
+		bindVars[strings.Replace(v, "@", "", 1)] = fields[i]
 	}
 	cursor, err := ds.database.Query(nil, query, bindVars)
 	if err != nil {
@@ -115,7 +116,7 @@ func (ds *arangoSource) GetIdentityWithAttr(r *jsonapi.IdRequest, fields []strin
 	}
 	defer cursor.Close()
 	doc := &identityDoc{}
-	meta, err := cursor.ReadDocument(nil, doc)
+	meta, err := cursor.ReadDocument(context.Background(), doc)
 	if err != nil {
 		if driver.IsNotFound(err) {
 			return &arangoResult{
