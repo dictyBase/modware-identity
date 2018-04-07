@@ -71,7 +71,7 @@ func NewDataSource(user, pass, database, host, port string) (storage.DataSource,
 
 func (ds *arangoSource) GetIdentity(r *jsonapi.IdRequest) (storage.Result, error) {
 	doc := &identityDoc{}
-	idStr := string(r.Id)
+	idStr := strconv.FormatInt(r.Id, 10)
 	_, err := ds.collection.ReadDocument(context.Background(), idStr, doc)
 	if err != nil {
 		if driver.IsNotFound(err) {

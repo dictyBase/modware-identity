@@ -10,10 +10,19 @@ import (
 	"github.com/dictyBase/apihelpers/aphdocker"
 	"github.com/dictyBase/go-genproto/dictybaseapis/api/jsonapi"
 	"github.com/dictyBase/go-genproto/dictybaseapis/identity"
+	"github.com/dictyBase/modware-identity/storage"
 )
 
 var ahost, aport, auser, apass, adb string
 var coll driver.Collection
+
+func newIdentity(email string) *identity.NewIdentityAttributes {
+	return &identity.NewIdentityAttributes{
+		Identifier: email,
+		Provider:   "google",
+		UserId:     19,
+	}
+}
 
 func TestMain(m *testing.M) {
 	adocker, err := aphdocker.NewArangoDocker()
@@ -106,5 +115,47 @@ func TestHasIdentity(t *testing.T) {
 	}
 	if !ifound {
 		t.Fatal("could not find identity with identifier and provider in storage")
+	}
+}
+
+func TestGetIdentity(t *testing.T) {
+	ds, err := NewDataSource(auser, apass, adb, ahost, aport)
+	if err != nil {
+		t.Fatalf("cannot connect to datasource %s", err)
+	}
+	defer coll.Truncate(context.Background())
+
+	var allRes []storage.Result
+	for _, e := range []string{
+		"bitnitu@gmail.com",
+		"jamba@gmail.com",
+	} {
+		r, err := ds.CreateIdentity(newIdentity(e))
+		if err != nil {
+			t.Fatal("could not create new identity with %s", e)
+		}
+		allRes = append(allRes, r)
+	}
+	nres, err := ds.GetIdentity(&jsonapi.IdRequest{Id: allRes[0].GetId()})
+	if err != nil {
+		t.Fatalf("cannot retrieve identity with id %s %s", allRes[0].GetId(), err)
+	}
+	attr1 := allRes[0].GetAttributes()
+	nattr1 := nres.GetAttributes()
+	if attr1.Identifier != nattr1.Identifier {
+		t.Fatalf("expected identifier %s does not match %s", attr1.Identifier, nattr1.Identifier)
+	}
+	pres, err := ds.GetProviderIdentity(
+		&identity.IdentityProviderReq{
+			Identifier: "jamba@gmail.com",
+			Provider:   "google",
+		})
+	if err != nil {
+		t.Fatalf("cannot retrieve identity with identity and provider %s", err)
+	}
+	attr2 := allRes[1].GetAttributes()
+	nattr2 := pres.GetAttributes()
+	if attr2.Identifier != nattr2.Identifier {
+		t.Fatalf("expected identifier %s does not match %s", attr2.Identifier, nattr2.Identifier)
 	}
 }
