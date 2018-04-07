@@ -72,7 +72,7 @@ func NewDataSource(user, pass, database, host, port string) (storage.DataSource,
 func (ds *arangoSource) GetIdentity(r *jsonapi.IdRequest) (storage.Result, error) {
 	doc := &identityDoc{}
 	idStr := string(r.Id)
-	_, err := ds.collection.ReadDocument(nil, idStr, doc)
+	_, err := ds.collection.ReadDocument(context.Background(), idStr, doc)
 	if err != nil {
 		if driver.IsNotFound(err) {
 			return &arangoResult{
@@ -195,7 +195,7 @@ func (ds *arangoSource) CreateIdentity(attr *identity.NewIdentityAttributes) (st
 		"provider":    attr.Provider,
 		"user_id":     attr.UserId,
 	}
-	cursor, err := ds.database.Query(nil, insert, bindVars)
+	cursor, err := ds.database.Query(context.Background(), insert, bindVars)
 	if err != nil {
 		return &arangoResult{
 			noResult: true,
@@ -203,7 +203,7 @@ func (ds *arangoSource) CreateIdentity(attr *identity.NewIdentityAttributes) (st
 	}
 	defer cursor.Close()
 	doc := &identityDoc{}
-	meta, err := cursor.ReadDocument(nil, doc)
+	meta, err := cursor.ReadDocument(context.Background(), doc)
 	if err != nil {
 		return &arangoResult{
 			noResult: true,
