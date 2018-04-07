@@ -42,11 +42,11 @@
   version = "1.0.0"
 
 [[constraint]]
+  branch = "master"
   name = "github.com/golang/protobuf"
-  version = "1.0.0"
 
 [[constraint]]
-  branch = "bugfix/37-panic-on-err"
+  branch = "master"
   name = "github.com/grpc-ecosystem/go-grpc-middleware"
 
 [[constraint]]
