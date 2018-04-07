@@ -20,7 +20,7 @@ func TestMain(m *testing.M) {
 	if err != nil {
 		log.Fatalf("Could not connect to docker: %s", err)
 	}
-	aresource, err = adocker.Run()
+	aresource, err := adocker.Run()
 	if err != nil {
 		log.Fatalf("Could not start resource: %s", err)
 	}
@@ -80,6 +80,7 @@ func TestHasIdentity(t *testing.T) {
 	if err != nil {
 		t.Fatalf("cannot connect to datasource %s", err)
 	}
+	defer coll.Truncate(context.Background())
 	res, err := ds.CreateIdentity(&identity.NewIdentityAttributes{
 		Identifier: "janto@gmail.com",
 		Provider:   "google",
@@ -94,5 +95,16 @@ func TestHasIdentity(t *testing.T) {
 	}
 	if !found {
 		t.Fatalf("could not find id %d in storage", res.GetId())
+	}
+	ifound, err := ds.HasProviderIdentity(
+		&identity.IdentityProviderReq{
+			Identifier: "janto@gmail.com",
+			Provider:   "google",
+		})
+	if err != nil {
+		t.Fatalf("error in finding identity with identifier and provider %s", err)
+	}
+	if !ifound {
+		t.Fatal("could not find identity with identifier and provider in storage")
 	}
 }
