@@ -224,7 +224,7 @@ func (ds *arangoSource) CreateIdentity(attr *identity.NewIdentityAttributes) (st
 }
 
 func (ds *arangoSource) DeleteIdentity(r *jsonapi.IdRequest) (bool, error) {
-	_, err := ds.collection.RemoveDocument(nil, string(r.Id))
+	_, err := ds.collection.RemoveDocument(nil, strconv.FormatInt(r.Id, 10))
 	if err != nil {
 		if driver.IsNotFound(err) {
 			return false, nil
