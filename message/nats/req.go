@@ -28,14 +28,14 @@ func NewRequest(host, port string, options ...gnats.Option) (message.Request, er
 	return &natsRequest{econn: ec}, nil
 }
 
-func (n *natsRequest) Request(subj string, r *pubsub.IdRequest, timeout time.Duration) (*pubsub.UserReply, error) {
-	reply := &pubsub.Reply{}
+func (n *natsRequest) UserRequest(subj string, r *pubsub.IdRequest, timeout time.Duration) (*pubsub.UserReply, error) {
+	reply := &pubsub.UserReply{}
 	err := n.econn.Request(subj, r, reply, timeout)
 	return reply, err
 }
 
-func (n *natsRequest) RequestWithContext(ctx context.Context, subj string, r *pubsub.IdRequest) (*pubsub.UserReply, error) {
-	reply := &pubsub.Reply{}
+func (n *natsRequest) UserRequestWithContext(ctx context.Context, subj string, r *pubsub.IdRequest) (*pubsub.UserReply, error) {
+	reply := &pubsub.UserReply{}
 	err := n.econn.RequestWithContext(ctx, subj, r, reply)
 	return reply, err
 }
