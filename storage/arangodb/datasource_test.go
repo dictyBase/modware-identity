@@ -70,7 +70,7 @@ func TestCreateIdentity(t *testing.T) {
 		UserId:     20,
 	})
 	if err != nil {
-		t.Fatal("could not create new identity")
+		t.Fatalf("could not create new identity", err)
 	}
 	if res.GetId() <= 1 {
 		t.Fatalf("expected id does not match %d", res.GetId())
@@ -157,5 +157,68 @@ func TestGetIdentity(t *testing.T) {
 	nattr2 := pres.GetAttributes()
 	if attr2.Identifier != nattr2.Identifier {
 		t.Fatalf("expected identifier %s does not match %s", attr2.Identifier, nattr2.Identifier)
+	}
+}
+
+func TestGetIdentityWithAttr(t *testing.T) {
+	ds, err := NewDataSource(auser, apass, adb, ahost, aport)
+	if err != nil {
+		t.Fatalf("cannot connect to datasource %s", err)
+	}
+	defer coll.Truncate(context.Background())
+	var allRes []storage.Result
+	for _, e := range []string{
+		"bitnitu@gmail.com",
+		"jamba@gmail.com",
+	} {
+		r, err := ds.CreateIdentity(newIdentity(e))
+		if err != nil {
+			t.Fatal("could not create new identity with %s", e)
+		}
+		allRes = append(allRes, r)
+	}
+	nres, err := ds.GetIdentityWithAttr(
+		&jsonapi.IdRequest{Id: allRes[0].GetId()},
+		[]string{"identifier"},
+	)
+	if err != nil {
+		t.Fatalf("cannot retrieve identifier with id %d %s", allRes[0].GetId(), err)
+	}
+	if nres.NotFound() == true {
+		t.Fatal("error in retrieving result")
+	}
+	if allRes[0].GetId() != nres.GetId() {
+		t.Fatalf("expected id %d does not match %d", allRes[0].GetId(), nres.GetId())
+	}
+	attr1 := allRes[0].GetAttributes()
+	nattr1 := nres.GetAttributes()
+	if attr1.Identifier != nattr1.Identifier {
+		t.Fatalf("expected identifier %s does not match %s", attr1.Identifier, nattr1.Identifier)
+	}
+	if len(nattr1.Provider) != 0 {
+		t.Fatalf("expected empty provider does not match %s\n", nattr1.Provider)
+	}
+}
+
+func TestDeleteIdentity(t *testing.T) {
+	ds, err := NewDataSource(auser, apass, adb, ahost, aport)
+	if err != nil {
+		t.Fatalf("cannot connect to datasource %s", err)
+	}
+	defer coll.Truncate(context.Background())
+	res, err := ds.CreateIdentity(&identity.NewIdentityAttributes{
+		Identifier: "hello@gmail.com",
+		Provider:   "google",
+		UserId:     20,
+	})
+	if err != nil {
+		t.Fatalf("could not create new identity", err)
+	}
+	done, err := ds.DeleteIdentity(&jsonapi.IdRequest{Id: res.GetId()})
+	if err != nil {
+		t.Fatalf("cannot delete identity with id %d %s", res.GetId, err)
+	}
+	if done == false {
+		t.Fatal("cannot delete identity")
 	}
 }
