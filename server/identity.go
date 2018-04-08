@@ -26,7 +26,7 @@ func defaultOptions() *aphgrpc.ServiceOptions {
 		PathPrefix: "identities",
 		Resource:   "identities",
 		Topics: map[string]string{
-			"userExists": "UserService.Exists",
+			"userExists": "UserService.Exist",
 		},
 	}
 }
@@ -82,7 +82,7 @@ func (s *IdentityService) CreateIdentity(ctx context.Context, r *identity.Create
 	}
 	// Check for presence of user
 	// by messaging through user service
-	reply, err := s.request.RequestWithContext(
+	reply, err := s.request.UserRequestWithContext(
 		context.Background(),
 		s.Topics["userExists"],
 		&pubsub.IdRequest{Id: r.Data.Attributes.UserId},
@@ -132,7 +132,7 @@ func (s *IdentityService) buildResourceData(id int64, attr *identity.IdentityAtt
 		Id:         id,
 		Type:       s.GetResourceName(),
 		Links: &jsonapi.Links{
-			Self: s.GenResourceSelfLink(id),
+			Self: s.GenResourceSelfLink(context.TODO(), id),
 		},
 	}
 }
@@ -141,7 +141,7 @@ func (s *IdentityService) buildResource(id int64, attr *identity.IdentityAttribu
 	return &identity.Identity{
 		Data: s.buildResourceData(id, attr),
 		Links: &jsonapi.Links{
-			Self: s.GenResourceSelfLink(id),
+			Self: s.GenResourceSelfLink(context.TODO(), id),
 		},
 	}
 }

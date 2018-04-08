@@ -46,9 +46,10 @@
   packages = [
     "dictybaseapis/api/jsonapi",
     "dictybaseapis/identity",
-    "dictybaseapis/pubsub"
+    "dictybaseapis/pubsub",
+    "dictybaseapis/user"
   ]
-  revision = "4c7eade40271791a94e5148248961bf4731b472d"
+  revision = "082a006471f4bb2c2d3be2c4a8e478be75d7f55e"
 
 [[projects]]
   name = "github.com/docker/distribution"
@@ -412,7 +413,8 @@
   name = "google.golang.org/genproto"
   packages = [
     "googleapis/api/annotations",
-    "googleapis/rpc/status"
+    "googleapis/rpc/status",
+    "protobuf/field_mask"
   ]
   revision = "ab0870e398d5dd054b868c0db1481ab029b9a9f2"
 
