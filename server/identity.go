@@ -45,6 +45,14 @@ func NewIdentityService(st storage.DataSource, r message.Request, opt ...aphgrpc
 	}
 }
 
+func (s *IdentityService) ExistProviderIdentity(ctx context.Context, r *identity.IdentityProviderReq) (*jsonapi.ExistResponse, error) {
+	found, err := s.storage.HasProviderIdentity(r)
+	if err != nil {
+		return &jsonapi.ExistResponse{}, aphgrpc.HandleGenericError(ctx, err)
+	}
+	return &jsonapi.ExistResponse{Exist: found}, nil
+}
+
 func (s *IdentityService) GetIdentityFromProvider(ctx context.Context, r *identity.IdentityProviderReq) (*identity.Identity, error) {
 	rs, err := s.storage.GetProviderIdentity(r)
 	if err != nil {
