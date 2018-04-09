@@ -18,7 +18,7 @@ type Request interface {
 	UserRequestWithContext(context.Context, string, *pubsub.IdRequest) (*pubsub.UserReply, error)
 }
 
-type ReplyFn func(string, IdentityClient, *pubsub.IdRequest) *pubsub.IdentityReply
+type ReplyFn func(string, IdentityClient, *pubsub.IdentityReq) *pubsub.IdentityReply
 
 type Reply interface {
 	Publish(string, *pubsub.IdentityReply)
