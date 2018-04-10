@@ -4,13 +4,16 @@ import (
 	"context"
 	"time"
 
+	"github.com/dictyBase/go-genproto/dictybaseapis/identity"
 	"github.com/dictyBase/go-genproto/dictybaseapis/pubsub"
 )
 
 type IdentityClient interface {
-	Get(int64) (*idenity.Identity, error)
+	Get(int64) (*identity.Identity, error)
+	GetByIdentity(*pubsub.IdentityReq) (*identity.Identity, error)
 	Delete(int64) (bool, error)
 	Exist(int64) (bool, error)
+	ExistIdentity(*pubsub.IdentityReq) (bool, error)
 }
 
 type Request interface {
