@@ -16,15 +16,15 @@ type grpcIdentityClient struct {
 
 func NewIdentityClient(conn *grpc.ClientConn) message.IdentityClient {
 	return &grpcIdentityClient{
-		client: user.NewIdentityServiceClient(conn),
+		client: identity.NewIdentityServiceClient(conn),
 	}
 }
 
 func (g *grpcIdentityClient) Get(id int64) (*identity.Identity, error) {
-	return g.client.GetIdentity(context.Background(), &jsonapi.GetRequest{Id: id})
+	return g.client.GetIdentity(context.Background(), &jsonapi.IdRequest{Id: id})
 }
 
-func (g *grpcIdentityClient) GetByIdentity(r *pubsub.IdentityReq) (*idenity.Identity, error) {
+func (g *grpcIdentityClient) GetByIdentity(r *pubsub.IdentityReq) (*identity.Identity, error) {
 	return g.client.GetIdentityFromProvider(
 		context.Background(),
 		&identity.IdentityProviderReq{
@@ -34,7 +34,7 @@ func (g *grpcIdentityClient) GetByIdentity(r *pubsub.IdentityReq) (*idenity.Iden
 }
 
 func (g *grpcIdentityClient) Delete(id int64) (bool, error) {
-	_, err := g.client.DeleteIdentity(context.Background(), &jsonapi.DeleteRequest{Id: id})
+	_, err := g.client.DeleteIdentity(context.Background(), &jsonapi.IdRequest{Id: id})
 	if err != nil {
 		return false, err
 	}
@@ -46,7 +46,7 @@ func (g *grpcIdentityClient) Exist(id int64) (bool, error) {
 	if err != nil {
 		return false, err
 	}
-	if idenity == nil {
+	if identity == nil {
 		return false, nil
 	}
 	return true, nil

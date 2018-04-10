@@ -49,13 +49,7 @@
     "dictybaseapis/pubsub",
     "dictybaseapis/user"
   ]
-  revision = "a753897ef533d433d46787749b3fb19f0952570e"
-
-[[projects]]
-  branch = "develop"
-  name = "github.com/dictyBase/modware-user"
-  packages = ["message"]
-  revision = "771605413f3beac30a73c5af6ed5b68bc0255501"
+  revision = "08291c6c9618ea4e7c844e29702c8db15d910e90"
 
 [[projects]]
   name = "github.com/docker/distribution"
@@ -543,6 +537,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "fcd020b114b1db7d8814fefb2c86e0bd206fb11fcb467bd3b7d3cdf4e88e1662"
+  inputs-digest = "8eb85290c3dc581de80510691b7ab4b717d3d261d921f2bf471e0df2562bf78c"
   solver-name = "gps-cdcl"
   solver-version = 1
