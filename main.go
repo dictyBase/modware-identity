@@ -82,6 +82,34 @@ func main() {
 				},
 			},
 		},
+		{
+			Name:   "start-identity-reply",
+			Usage:  "start the reply messaging(nats) backend for identity microservice",
+			Action: commands.RunIdentityReply,
+			Before: validate.ValidateReplyArgs,
+			Flags: []cli.Flag{
+				cli.StringFlag{
+					Name:   "identity-grpc-host",
+					EnvVar: "IDENTITY_API_SERVICE_HOST",
+					Usage:  "grpc host address for identity service",
+				},
+				cli.StringFlag{
+					Name:   "identity-grpc-port",
+					EnvVar: "IDENTITY_API_SERVICE_PORT",
+					Usage:  "grpc port for identity service",
+				},
+				cli.StringFlag{
+					Name:   "messaging-host",
+					EnvVar: "NATS_SERVICE_HOST",
+					Usage:  "host address for messaging server",
+				},
+				cli.StringFlag{
+					Name:   "messaging-port",
+					EnvVar: "NATS_SERVICE_PORT",
+					Usage:  "port for messaging server",
+				},
+			},
+		},
 	}
 	app.Run(os.Args)
 }
