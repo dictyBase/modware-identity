@@ -56,7 +56,7 @@ func main() {
 				},
 				cli.StringFlag{
 					Name:   "arangodb-port",
-					EnvVar: "ARAGODB_BACKEND_SERVICE_PORT",
+					EnvVar: "ARANGODB_BACKEND_SERVICE_PORT",
 					Usage:  "arangodb database port",
 					Value:  "8529",
 				},
