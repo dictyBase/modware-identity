@@ -43,7 +43,7 @@ func ReplyIdentity(subj string, c message.IdentityClient, req *pubsub.IdentityRe
 			Identity: identity,
 		}
 	case "IdentityService.ExistIdentity":
-		exist, err := c.ExistIdentity(r)
+		exist, err := c.ExistIdentity(req)
 		if err != nil {
 			st, _ := status.FromError(err)
 			return &pubsub.IdentityReply{
@@ -79,7 +79,7 @@ func ReplyIdentity(subj string, c message.IdentityClient, req *pubsub.IdentityRe
 			Exist: deleted,
 		}
 	case "IdentityService.GetIdentity":
-		identity, err := c.GetByIdentity(r)
+		identity, err := c.GetByIdentity(req)
 		if err != nil {
 			st, _ := status.FromError(err)
 			return &pubsub.IdentityReply{
@@ -122,7 +122,7 @@ func RunidentityReply(c *cli.Context) error {
 	}
 	err = reply.Start(
 		"IdentityService.*",
-		gclient.NewidentityClient(conn),
+		gclient.NewIdentityClient(conn),
 		ReplyIdentity,
 	)
 	if err != nil {
