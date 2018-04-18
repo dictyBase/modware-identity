@@ -99,7 +99,7 @@ func ReplyIdentity(subj string, c message.IdentityClient, req *pubsub.IdentityRe
 	}
 }
 
-func RunidentityReply(c *cli.Context) error {
+func RunIdentityReply(c *cli.Context) error {
 	reply, err := nats.NewReply(
 		c.String("messaging-host"),
 		c.String("messaging-port"),
