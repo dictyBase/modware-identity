@@ -50,13 +50,13 @@ func main() {
 				},
 				cli.StringFlag{
 					Name:   "arangodb-host, host",
-					Value:  "arangodb-backend",
-					EnvVar: "ARANGODB_BACKEND_SERVICE_HOST",
+					Value:  "arangodb",
+					EnvVar: "ARANGODB_SERVICE_HOST",
 					Usage:  "arangodb database host",
 				},
 				cli.StringFlag{
 					Name:   "arangodb-port",
-					EnvVar: "ARANGODB_BACKEND_SERVICE_PORT",
+					EnvVar: "ARANGODB_SERVICE_PORT",
 					Usage:  "arangodb database port",
 					Value:  "8529",
 				},
