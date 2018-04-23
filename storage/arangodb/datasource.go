@@ -11,7 +11,7 @@ import (
 	"github.com/dictyBase/go-genproto/dictybaseapis/api/jsonapi"
 
 	driver "github.com/arangodb/go-driver"
-	"github.com/arangodb/go-driver/vst"
+	"github.com/arangodb/go-driver/http"
 	"github.com/dictyBase/go-genproto/dictybaseapis/identity"
 	"github.com/dictyBase/modware-identity/storage"
 )
@@ -35,10 +35,10 @@ type arangoSource struct {
 
 func NewDataSource(user, pass, database, host, port string) (storage.DataSource, error) {
 	var ds *arangoSource
-	conn, err := vst.NewConnection(
-		vst.ConnectionConfig{
+	conn, err := http.NewConnection(
+		http.ConnectionConfig{
 			Endpoints: []string{
-				fmt.Sprintf("vst://%s:%s", host, port),
+				fmt.Sprintf("https://%s:%s", host, port),
 			},
 		})
 	if err != nil {

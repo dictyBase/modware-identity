@@ -13,6 +13,7 @@
   packages = [
     ".",
     "cluster",
+    "http",
     "util",
     "vst",
     "vst/protocol"
@@ -537,6 +538,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "8eb85290c3dc581de80510691b7ab4b717d3d261d921f2bf471e0df2562bf78c"
+  inputs-digest = "d90dd296cdcda3414699a3635a5d9c68aaaa1a2c33be17aeb454cc1c3f2e9ebb"
   solver-name = "gps-cdcl"
   solver-version = 1
