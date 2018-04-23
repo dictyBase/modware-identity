@@ -33,12 +33,48 @@ type arangoSource struct {
 	collection driver.Collection
 }
 
-func NewDataSource(user, pass, database, host, port string) (storage.DataSource, error) {
+func NewTLSDataSource(user, pass, database, host, port string) (storage.DataSource, error) {
 	var ds *arangoSource
 	conn, err := http.NewConnection(
 		http.ConnectionConfig{
 			Endpoints: []string{
 				fmt.Sprintf("https://%s:%s", host, port),
+			},
+		})
+	if err != nil {
+		return ds, fmt.Errorf("could not connect %s", err)
+	}
+	client, err := driver.NewClient(
+		driver.ClientConfig{
+			Connection: conn,
+			Authentication: driver.BasicAuthentication(
+				user,
+				pass,
+			),
+		})
+	if err != nil {
+		return ds, fmt.Errorf("could not get a client instance %s", err)
+	}
+	db, err := getDatabase(database, client)
+	if err != nil {
+		return ds, err
+	}
+	c, err := getCollection(db)
+	if err != nil {
+		return ds, err
+	}
+	return &arangoSource{
+		database:   db,
+		collection: c,
+	}, nil
+}
+
+func NewDataSource(user, pass, database, host, port string) (storage.DataSource, error) {
+	var ds *arangoSource
+	conn, err := http.NewConnection(
+		http.ConnectionConfig{
+			Endpoints: []string{
+				fmt.Sprintf("http://%s:%s", host, port),
 			},
 		})
 	if err != nil {
