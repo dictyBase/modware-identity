@@ -12,9 +12,9 @@ image:
 # Arangodb database credentials  
 ##  
 # database:
-#  name:
-#  user:
-#  password:
+  # name: 
+  # user: 
+  # password: 
 
 service:
   name: identity-api

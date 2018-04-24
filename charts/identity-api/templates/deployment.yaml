@@ -27,12 +27,12 @@ spec:
             "start-server",
         {{- if .Values.database }}
           {{- with .Values.database }}
-            "--user"
+            "--user",
             "{{ .user }}",
-            "--pass"
+            "--pass",
             "{{ .password }}",
             "--db",
-            "{{ .name }}"
+            "{{ .name }}",
           {{- end }}
             "--identity-api-http-host",
             "{{ .Values.apiHost }}",
