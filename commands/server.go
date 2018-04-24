@@ -12,6 +12,7 @@ import (
 	pb "github.com/dictyBase/go-genproto/dictybaseapis/identity"
 	"github.com/dictyBase/modware-identity/message/nats"
 	"github.com/dictyBase/modware-identity/server"
+	"github.com/dictyBase/modware-identity/storage"
 	"github.com/dictyBase/modware-identity/storage/arangodb"
 	"github.com/go-chi/cors"
 	"github.com/grpc-ecosystem/go-grpc-middleware"
@@ -26,18 +27,37 @@ import (
 )
 
 func RunServer(c *cli.Context) error {
-	ds, err := arangodb.NewDataSource(
-		c.String("arangodb-user"),
-		c.String("arangodb-pass"),
-		c.String("arangodb-database"),
-		c.String("arangodb-host"),
-		c.String("arangodb-port"),
-	)
-	if err != nil {
-		return cli.NewExitError(
-			fmt.Sprintf("cannot connect to arangodb datasource %s", err.Error()),
-			2,
+	var ds storage.DataSource
+	if c.IsSet("is-secure") {
+		a, err := arangodb.NewTLSDataSource(
+			c.String("arangodb-user"),
+			c.String("arangodb-pass"),
+			c.String("arangodb-database"),
+			c.String("arangodb-host"),
+			c.String("arangodb-port"),
 		)
+		if err != nil {
+			return cli.NewExitError(
+				fmt.Sprintf("cannot connect to secured arangodb datasource %s", err.Error()),
+				2,
+			)
+		}
+		ds = a
+	} else {
+		a, err := arangodb.NewDataSource(
+			c.String("arangodb-user"),
+			c.String("arangodb-pass"),
+			c.String("arangodb-database"),
+			c.String("arangodb-host"),
+			c.String("arangodb-port"),
+		)
+		if err != nil {
+			return cli.NewExitError(
+				fmt.Sprintf("cannot connect to arangodb datasource %s", err.Error()),
+				2,
+			)
+		}
+		ds = a
 	}
 	ms, err := nats.NewRequest(
 		c.String("nats-host"),

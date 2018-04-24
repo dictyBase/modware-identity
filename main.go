@@ -60,10 +60,9 @@ func main() {
 					Usage:  "arangodb database port",
 					Value:  "8529",
 				},
-				cli.StringFlag{
-					Name:   "identity-api-http-host",
-					EnvVar: "IDENTITY_API_HTTP_HOST",
-					Usage:  "public hostname serving the http api, by default the default port will be appended to http://localhost",
+				cli.BoolTFlag{
+					Name:  "is-secure",
+					Usage: "flag for secured or unsecured arangodb endpoint",
 				},
 				cli.StringFlag{
 					Name:   "nats-host",
