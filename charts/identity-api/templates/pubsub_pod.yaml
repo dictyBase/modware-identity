@@ -6,7 +6,7 @@ metadata:
     app: {{ template "identity-api.fullname" . }}-{{ .Values.pubsub.name }}
 spec:
   containers:
-  - name: {{ .Chart.name }}-{{ .Values.pubsub.name }}
+  - name: "{{ .Chart.Name }}-{{ .Values.pubsub.name }}"
     image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
     imagePullPolicy: {{ .Values.image.pullPolicy }}
     args: [

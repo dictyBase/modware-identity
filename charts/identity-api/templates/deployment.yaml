@@ -37,10 +37,14 @@ spec:
             "--identity-api-http-host",
             "{{ .Values.apiHost }}",
             "--port",
-            "{{ .Values.service.port }}"
+            "{{ .Values.service.port }}",
+          {{- if eq .Values.endpoint "https" }}
+            "--is-secure",
+            "true"
+          {{- end }}
         {{- else }}    
           {{required "A value for .Values.database is required" .Values.database }}
-        {{- end -}}
+        {{- end }}
           ]
           ports:
             - name: {{ .Values.service.name }}
@@ -48,8 +52,9 @@ spec:
               protocol: TCP
           livenessProbe:
             httpGet:
-              path: /
+              path: {{ .Values.healthCheck.path }}
               port: {{ .Values.service.port }}
+              delay: {{ .Values.healthCheck.delay }}
     {{- if .Values.resources }}
           resources:
 {{ toYaml .Values.resources | indent 12 }}

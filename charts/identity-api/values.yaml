@@ -9,17 +9,28 @@ image:
   pullPolicy: IfNotPresent
 
 ## 
-# Arangodb database credentials  
+##  Arangodb database 
+# 
+# connection endpoint http or https(ssl)
+endpoint: https
 ##  
+# credentials for connection 
 # database:
   # name: 
   # user: 
   # password: 
 
+
 service:
   name: identity-api
   type: NodePort
   port: 9560
+
+healthCheck:
+  # configure liveness probes for 
+  # container
+  path: "/healthz"
+  delay: 16
 
 # The hostname from which the api will be served
 apiHost: "http://localhost"
