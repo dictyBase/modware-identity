@@ -2,6 +2,7 @@ package arangodb
 
 import (
 	"context"
+	"crypto/tls"
 	"fmt"
 	"strconv"
 	"strings"
@@ -40,6 +41,7 @@ func NewTLSDataSource(user, pass, database, host, port string) (storage.DataSour
 			Endpoints: []string{
 				fmt.Sprintf("https://%s:%s", host, port),
 			},
+			TLSConfig: &tls.Config{InsecureSkipVerify: true},
 		})
 	if err != nil {
 		return ds, fmt.Errorf("could not connect %s", err)
