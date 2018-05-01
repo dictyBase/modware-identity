@@ -1,17 +1,29 @@
-apiVersion: v1
-kind: Pod
+apiVersion: apps/v1beta2
+kind: Deployment
 metadata:
   name: {{ template "identity-api.fullname" . }}-{{ .Values.pubsub.name }}
   labels:
     app: {{ template "identity-api.fullname" . }}-{{ .Values.pubsub.name }}
+    chart: {{ template "identity-api.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
 spec:
-  containers:
-  - name: "{{ .Chart.Name }}-{{ .Values.pubsub.name }}"
-    image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-    imagePullPolicy: {{ .Values.image.pullPolicy }}
-    args: [
-      "--log-level",
-      "info",
-      "start-identity-reply"
-    ]
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ template "identity-api.fullname" . }}-{{ .Values.pubsub.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "identity-api.fullname" . }}-{{ .Values.pubsub.name }}
+    spec:
+      containers:
+      - name: "{{ .Chart.Name }}-{{ .Values.pubsub.name }}"
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        args: [
+          "--log-level",
+          "info",
+          "start-identity-reply"
+        ]
 
