@@ -70,7 +70,7 @@ func (s *IdentityService) GetIdentity(ctx context.Context, r *jsonapi.IdRequest)
 		return &identity.Identity{}, aphgrpc.HandleGetError(ctx, err)
 	}
 	if rs.NotFound() {
-		return &identity.Identity{}, aphgrpc.HandleNotFoundError(ctx, err)
+		return &identity.Identity{}, aphgrpc.HandleNotFoundError(ctx, fmt.Errorf("identity not found for id %d", r.Id))
 	}
 	return s.buildResource(rs.GetId(), rs.GetAttributes()), nil
 }
