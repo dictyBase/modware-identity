@@ -88,7 +88,15 @@ func (s *IdentityService) CreateIdentity(ctx context.Context, r *identity.Create
 		return emptyIdn, aphgrpc.HandleGenericError(ctx, err)
 	}
 	if found {
-		return emptyIdn, aphgrpc.HandleExistError(ctx, err)
+		return emptyIdn,
+			aphgrpc.HandleExistError(
+				ctx,
+				fmt.Errorf(
+					"identity with identifier %s and provider %s exist",
+					r.Data.Attributes.Identifier,
+					r.Data.Attributes.Provider,
+				))
+
 	}
 	// Check for presence of user
 	// by messaging through user service
