@@ -50,7 +50,7 @@
     "dictybaseapis/pubsub",
     "dictybaseapis/user"
   ]
-  revision = "c875deaa60d6f160a462d41b0f9e233e436c1dbe"
+  revision = "ea2ef7bdf75339aed2cf51a129955a71892e1641"
 
 [[projects]]
   name = "github.com/docker/distribution"
@@ -156,10 +156,9 @@
     "ptypes/struct",
     "ptypes/timestamp"
   ]
-  revision = "e09c5db296004fbe3f74490e84dcd62c3c5ddb1b"
+  revision = "927b65914520a8b7d44f5c9057611cfec6b2e2d0"
 
 [[projects]]
-  branch = "master"
   name = "github.com/grpc-ecosystem/go-grpc-middleware"
   packages = [
     ".",
@@ -169,17 +168,18 @@
     "tags",
     "tags/logrus"
   ]
-  revision = "bc372cc64f55abd91995ba3f219b380ffbc59e9d"
+  revision = "c250d6563d4d4c20252cd865923440e829844f4e"
+  version = "v1.0.0"
 
 [[projects]]
+  branch = "master"
   name = "github.com/grpc-ecosystem/grpc-gateway"
   packages = [
     "runtime",
     "runtime/internal",
     "utilities"
   ]
-  revision = "07f5e79768022f9a3265235f0db4ac8c3f675fec"
-  version = "v1.3.1"
+  revision = "a53af079f669b6375dd96cdf5e98e67f886a8b4d"
 
 [[projects]]
   name = "github.com/jackc/pgx"
@@ -417,7 +417,7 @@
     "googleapis/rpc/status",
     "protobuf/field_mask"
   ]
-  revision = "ab0870e398d5dd054b868c0db1481ab029b9a9f2"
+  revision = "7bb2a897381c9c5ab2aeb8614f758d7766af68ff"
 
 [[projects]]
   name = "google.golang.org/grpc"
@@ -426,6 +426,7 @@
     "balancer",
     "balancer/base",
     "balancer/roundrobin",
+    "channelz",
     "codes",
     "connectivity",
     "credentials",
@@ -448,8 +449,8 @@
     "tap",
     "transport"
   ]
-  revision = "afc05b9e1d36f289ea16ba294894486a3e458246"
-  version = "v1.11.0"
+  revision = "41344da2231b913fa3d983840a57a6b1b7b631a1"
+  version = "v1.12.0"
 
 [[projects]]
   branch = "v2"
@@ -538,6 +539,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "d90dd296cdcda3414699a3635a5d9c68aaaa1a2c33be17aeb454cc1c3f2e9ebb"
+  inputs-digest = "3e988839a6680f7af39f62305bf75b8768434e99c8f6cc2667c1449dc68779c0"
   solver-name = "gps-cdcl"
   solver-version = 1
