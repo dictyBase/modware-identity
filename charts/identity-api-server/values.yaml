@@ -5,7 +5,7 @@
 replicaCount: 1
 image:
   repository: dictybase/modware-identity
-  tag: 0.3.2
+  tag: 0.3.3
   pullPolicy: IfNotPresent
 
 ## 
