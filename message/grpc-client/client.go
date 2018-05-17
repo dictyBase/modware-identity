@@ -2,6 +2,7 @@ package client
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/dictyBase/go-genproto/dictybaseapis/api/jsonapi"
 	"github.com/dictyBase/go-genproto/dictybaseapis/identity"
@@ -46,7 +47,10 @@ func (g *grpcIdentityClient) Exist(id int64) (bool, error) {
 	if err != nil {
 		return false, err
 	}
-	return true, nil
+	if identity != nil {
+		return true, nil
+	}
+	return false, fmt.Errorf("unknown error in fetch id %d", id)
 }
 
 func (g *grpcIdentityClient) ExistIdentity(r *pubsub.IdentityReq) (bool, error) {
