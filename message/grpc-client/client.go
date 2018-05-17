@@ -46,9 +46,6 @@ func (g *grpcIdentityClient) Exist(id int64) (bool, error) {
 	if err != nil {
 		return false, err
 	}
-	if identity == nil {
-		return false, nil
-	}
 	return true, nil
 }
 
