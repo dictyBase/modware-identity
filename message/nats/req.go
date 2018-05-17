@@ -39,3 +39,7 @@ func (n *natsRequest) UserRequestWithContext(ctx context.Context, subj string, r
 	err := n.econn.RequestWithContext(ctx, subj, r, reply)
 	return reply, err
 }
+
+func (n *natsRequest) IsActive() bool {
+	return n.econn.Conn.IsConnected()
+}

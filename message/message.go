@@ -19,6 +19,7 @@ type IdentityClient interface {
 type Request interface {
 	UserRequest(string, *pubsub.IdRequest, time.Duration) (*pubsub.UserReply, error)
 	UserRequestWithContext(context.Context, string, *pubsub.IdRequest) (*pubsub.UserReply, error)
+	IsActive() bool
 }
 
 type ReplyFn func(string, IdentityClient, *pubsub.IdentityReq) *pubsub.IdentityReply
