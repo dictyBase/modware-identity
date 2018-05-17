@@ -12,7 +12,9 @@ import (
 	"github.com/dictyBase/modware-identity/storage"
 	"github.com/golang/protobuf/ptypes/empty"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/metadata"
+	"google.golang.org/grpc/status"
 )
 
 type IdentityService struct {
@@ -130,6 +132,9 @@ func (s *IdentityService) DeleteIdentity(ctx context.Context, r *jsonapi.IdReque
 }
 
 func (s *IdentityService) Healthz(ctx context.Context, r *jsonapi.HealthzIdRequest) (*empty.Empty, error) {
+	if !s.request.IsActive() {
+		return &empty.Empty{}, status.Error(codes.Internal, "disconnected from request messaging")
+	}
 	return &empty.Empty{}, nil
 }
 
