@@ -5,7 +5,7 @@
 replicaCount: 1
 image:
   repository: dictybase/modware-identity
-  tag: 0.3.1
+  tag: 0.3.2
   pullPolicy: IfNotPresent
 
 ## 
@@ -30,8 +30,8 @@ healthCheck:
   # configure liveness probes for 
   # container
   path: "/healthz"
-  initial: 15
-  period: 60
+  initial: 10
+  period: 10
 
 # The hostname from which the api will be served
 apiHost: "http://localhost"
