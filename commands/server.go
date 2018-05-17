@@ -7,6 +7,7 @@ import (
 	"net"
 	"net/http"
 	"os"
+	"time"
 
 	"github.com/dictyBase/apihelpers/aphgrpc"
 	pb "github.com/dictyBase/go-genproto/dictybaseapis/identity"
@@ -19,6 +20,7 @@ import (
 	"github.com/grpc-ecosystem/go-grpc-middleware/logging/logrus"
 	"github.com/grpc-ecosystem/go-grpc-middleware/tags"
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
+	gnats "github.com/nats-io/go-nats"
 	"github.com/sirupsen/logrus"
 	"github.com/soheilhy/cmux"
 	"google.golang.org/grpc"
@@ -62,6 +64,8 @@ func RunServer(c *cli.Context) error {
 	ms, err := nats.NewRequest(
 		c.String("nats-host"),
 		c.String("nats-port"),
+		gnats.MaxReconnects(-1),
+		gnats.ReconnectWait(2*time.Second),
 	)
 	if err != nil {
 		return cli.NewExitError(
