@@ -6,6 +6,26 @@ import (
 	"gopkg.in/urfave/cli.v1"
 )
 
+func ValidateCreateIdentityArgs(c *cli.Context) error {
+	for _, p := range []string{
+		"identity-grpc-host",
+		"user-grpc-host",
+		"user-grpc-port",
+		"identity-grpc-port",
+		"identifier",
+		"provider",
+		"user-id",
+	} {
+		if len(c.String(p)) == 0 {
+			return cli.NewExitError(
+				fmt.Sprintf("argument %s is missing", p),
+				2,
+			)
+		}
+	}
+	return nil
+}
+
 func ValidateReplyArgs(c *cli.Context) error {
 	for _, p := range []string{
 		"identity-grpc-host",
