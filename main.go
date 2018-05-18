@@ -114,6 +114,46 @@ func main() {
 				},
 			},
 		},
+		{
+			Name:   "create-identity",
+			Usage:  "creates a new identity for an user",
+			Action: commands.CreateIdentity,
+			Before: validate.ValidateCreateIdentityArgs,
+			Flags: []cli.Flag{
+				cli.StringFlag{
+					Name:   "identity-grpc-host",
+					EnvVar: "IDENTITY_API_SERVICE_HOST",
+					Usage:  "grpc host address for identity service",
+				},
+				cli.StringFlag{
+					Name:   "identity-grpc-port",
+					EnvVar: "IDENTITY_API_SERVICE_PORT",
+					Usage:  "grpc port for identity service",
+				},
+				cli.StringFlag{
+					Name:   "user-grpc-host",
+					EnvVar: "USER_API_SERVICE_HOST",
+					Usage:  "host address for user service",
+				},
+				cli.StringFlag{
+					Name:   "user-grpc-port",
+					EnvVar: "USER_API_SERVICE_PORT",
+					Usage:  "port for user service",
+				},
+				cli.StringFlag{
+					Name:  "identifier",
+					Usage: "Third party unique identifier",
+				},
+				cli.StringFlag{
+					Name:  "provider",
+					Usage: "Name of provider who provides the identifier",
+				},
+				cli.Int64Flag{
+					Name:  "user-id",
+					Usage: "An user id that will be tied to the identifier",
+				},
+			},
+		},
 	}
 	app.Run(os.Args)
 }
