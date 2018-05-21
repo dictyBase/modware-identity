@@ -1,0 +1,33 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ template "load-identity.fullname" . }}
+  labels:
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  template:
+    metadata:
+      name: {{ template "load-identity.fullname" . }}
+      labels:
+        app: {{ template "load-identity.fullname" . }}
+    spec:
+      containers:
+      - name: {{ template "load-identity.fullname" . }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: "{{ .Values.image.pullPolicy }}"
+        args: [
+          "--log-level",
+          "info",
+          "create-identity",
+          "--identifier",
+          {{- with .Values.arguments }}
+          "{{ .identifier }}",
+          "--provider",
+          "{{ .provider }}",
+          "--user-id",
+          "{{ .userId }}"
+          {{- end }}
+        ]
+      restartPolicy: Never
