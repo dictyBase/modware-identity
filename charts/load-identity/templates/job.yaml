@@ -26,8 +26,8 @@ spec:
           "{{ .identifier }}",
           "--provider",
           "{{ .provider }}",
-          "--user-id",
-          "{{ .userId }}"
+          "--email",
+          "{{ .email }}"
           {{- end }}
         ]
       restartPolicy: Never
