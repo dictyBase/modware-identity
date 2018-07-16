@@ -33,16 +33,10 @@ func CreateIdentity(c *cli.Context) error {
 		)
 	}
 	uclient := user.NewUserServiceClient(uconn)
-	res, err := uclient.ExistUser(context.Background(), &jsonapi.IdRequest{Id: c.Int64("user-id")})
+	res, err := uclient.GetUserByEmail(context.Background(), &jsonapi.GetEmailRequest{Email: c.String("email")})
 	if err != nil {
 		return cli.NewExitError(
-			fmt.Sprintf("error in retrieving user-id %d %s", c.Int64("user-id"), err),
-			2,
-		)
-	}
-	if !res.Exist {
-		return cli.NewExitError(
-			fmt.Sprintf("user-id %d does not exist", c.Int64("user-id")),
+			fmt.Sprintf("error in retrieving user %s", c.Int64("email"), err),
 			2,
 		)
 	}
@@ -55,7 +49,7 @@ func CreateIdentity(c *cli.Context) error {
 				Attributes: &identity.NewIdentityAttributes{
 					Identifier: c.String("identifier"),
 					Provider:   c.String("provider"),
-					UserId:     c.Int64("user-id"),
+					UserId:     res.Data.Id,
 				},
 			},
 		})
@@ -67,11 +61,11 @@ func CreateIdentity(c *cli.Context) error {
 	}
 	logger := getLogger(c)
 	logger.Infof(
-		"created identity %d with identifier %s provider %s and user id %d",
+		"created identity %d with identifier %s provider %s and user %s",
 		idn.Data.Id,
 		c.String("identifier"),
 		c.String("provider"),
-		c.Int64("user-id"),
+		c.Int64("email"),
 	)
 	return nil
 }

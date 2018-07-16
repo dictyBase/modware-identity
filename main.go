@@ -148,9 +148,9 @@ func main() {
 					Name:  "provider",
 					Usage: "Name of provider who provides the identifier",
 				},
-				cli.Int64Flag{
-					Name:  "user-id",
-					Usage: "An user id that will be tied to the identifier",
+				cli.StringFlag{
+					Name:  "email",
+					Usage: "An user email(not the identity provider's email) that will be tied to the identifier",
 				},
 			},
 		},
