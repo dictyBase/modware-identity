@@ -14,7 +14,7 @@ func ValidateCreateIdentityArgs(c *cli.Context) error {
 		"identity-grpc-port",
 		"identifier",
 		"provider",
-		"user-id",
+		"email",
 	} {
 		if len(c.String(p)) == 0 {
 			return cli.NewExitError(
