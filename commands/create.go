@@ -65,7 +65,7 @@ func CreateIdentity(c *cli.Context) error {
 		idn.Data.Id,
 		c.String("identifier"),
 		c.String("provider"),
-		c.Int64("email"),
+		c.String("email"),
 	)
 	return nil
 }
