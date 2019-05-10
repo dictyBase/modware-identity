@@ -10,7 +10,7 @@ import (
 func getDatabase(database string, client driver.Client) (driver.Database, error) {
 	var db driver.Database
 	ok, err := client.DatabaseExists(context.Background(), database)
-	if err != nil {
+	if err != nil { 
 		return db, fmt.Errorf("unable to check for database %s", err)
 	}
 	if !ok {
@@ -31,7 +31,6 @@ func getCollection(db driver.Database) (driver.Collection, error) {
 		if err != nil {
 			return c, fmt.Errorf("failed to create %s collection: %v", collection, err)
 		}
-		fmt.Printf("successfully created collection %s", collection)
 	}
 
 	return db.Collection(context.Background(), collection)
