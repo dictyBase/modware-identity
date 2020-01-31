@@ -36,7 +36,7 @@ func CreateIdentity(c *cli.Context) error {
 	res, err := uclient.GetUserByEmail(context.Background(), &jsonapi.GetEmailRequest{Email: c.String("email")})
 	if err != nil {
 		return cli.NewExitError(
-			fmt.Sprintf("error in retrieving user %s", c.Int64("email"), err),
+			fmt.Sprintf("error in retrieving user %s %s", c.String("email"), err),
 			2,
 		)
 	}
