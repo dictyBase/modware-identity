@@ -4,15 +4,17 @@ import (
 	"context"
 	"log"
 	"os"
+	"strconv"
 	"testing"
 
 	driver "github.com/arangodb/go-driver"
-	"github.com/dictyBase/apihelpers/aphdocker"
+	"github.com/dictyBase/arangomanager/testarango"
 	"github.com/dictyBase/go-genproto/dictybaseapis/api/jsonapi"
 	"github.com/dictyBase/go-genproto/dictybaseapis/identity"
 	"github.com/dictyBase/modware-identity/storage"
 )
 
+var gta *testarango.TestArango
 var ahost, aport, auser, apass, adb string
 var coll driver.Collection
 
@@ -25,36 +27,28 @@ func newIdentity(email string) *identity.NewIdentityAttributes {
 }
 
 func TestMain(m *testing.M) {
-	adocker, err := aphdocker.NewArangoDocker()
+	ta, err := testarango.NewTestArangoFromEnv(true)
 	if err != nil {
-		log.Fatalf("Could not connect to docker: %s", err)
+		log.Fatalf("unable to construct new TestArango instance %s", err)
 	}
-	aresource, err := adocker.Run()
+	gta = ta
+	dbh, err := ta.DB(ta.Database)
 	if err != nil {
-		log.Fatalf("Could not start resource: %s", err)
+		log.Fatalf("unable to get database %s", err)
 	}
-	client, err := adocker.RetryConnection()
+	auser = gta.User
+	apass = gta.Pass
+	ahost = gta.Host
+	aport = strconv.Itoa(gta.Port)
+	adb = gta.Database
+	coll := "test-collection"
+	_, err = dbh.CreateCollection(coll, &driver.CreateCollectionOptions{})
 	if err != nil {
-		log.Fatalf("unable to get client connection %s", err)
+		dbh.Drop()
+		log.Fatalf("unable to create collection %s %s", coll, err)
 	}
-	adb = aphdocker.RandString(6)
-	dbh, err := client.CreateDatabase(context.Background(), adb, &driver.CreateDatabaseOptions{})
-	if err != nil {
-		log.Fatalf("could not create arangodb database %s %s\n", adb, err)
-	}
-
-	coll, err = dbh.CreateCollection(context.Background(), collection, &driver.CreateCollectionOptions{})
-	if err != nil {
-		log.Fatalf("could not create arangodb collection %s", collection)
-	}
-	auser = adocker.GetUser()
-	apass = adocker.GetPassword()
-	ahost = adocker.GetIP()
-	aport = adocker.GetPort()
 	code := m.Run()
-	if err = adocker.Purge(aresource); err != nil {
-		log.Fatalf("unable to remove arangodb container %s\n", err)
-	}
+	dbh.Drop()
 	os.Exit(code)
 }
 
