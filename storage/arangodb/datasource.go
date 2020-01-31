@@ -297,3 +297,11 @@ func (ds *arangoSource) HasProviderIdentity(r *identity.IdentityProviderReq) (bo
 func (ds *arangoSource) HasIdentity(r *jsonapi.IdRequest) (bool, error) {
 	return ds.collection.DocumentExists(context.Background(), strconv.FormatInt(r.Id, 10))
 }
+
+// ClearIdentities clears all identities from the repository datasource
+func (ds *arangoSource) ClearIdentities() error {
+	if err := ds.collection.Truncate(context.Background()); err != nil {
+		return err
+	}
+	return nil
+}

@@ -1,7 +1,6 @@
 package arangodb
 
 import (
-	"context"
 	"log"
 	"os"
 	"strconv"
@@ -16,7 +15,6 @@ import (
 
 var gta *testarango.TestArango
 var ahost, aport, auser, apass, adb string
-var coll driver.Collection
 
 func newIdentity(email string) *identity.NewIdentityAttributes {
 	return &identity.NewIdentityAttributes{
@@ -57,7 +55,12 @@ func TestCreateIdentity(t *testing.T) {
 	if err != nil {
 		t.Fatalf("cannot connect to datasource %s", err)
 	}
-	defer coll.Truncate(context.Background())
+	defer func() {
+		err := ds.ClearIdentities()
+		if err != nil {
+			t.Fatalf("error in clearing identities %s", err)
+		}
+	}()
 	res, err := ds.CreateIdentity(&identity.NewIdentityAttributes{
 		Identifier: "hello@gmail.com",
 		Provider:   "google",
@@ -83,7 +86,12 @@ func TestHasIdentity(t *testing.T) {
 	if err != nil {
 		t.Fatalf("cannot connect to datasource %s", err)
 	}
-	defer coll.Truncate(context.Background())
+	defer func() {
+		err := ds.ClearIdentities()
+		if err != nil {
+			t.Fatalf("error in clearing identities %s", err)
+		}
+	}()
 	res, err := ds.CreateIdentity(&identity.NewIdentityAttributes{
 		Identifier: "janto@gmail.com",
 		Provider:   "google",
@@ -117,8 +125,12 @@ func TestGetIdentity(t *testing.T) {
 	if err != nil {
 		t.Fatalf("cannot connect to datasource %s", err)
 	}
-	defer coll.Truncate(context.Background())
-
+	defer func() {
+		err := ds.ClearIdentities()
+		if err != nil {
+			t.Fatalf("error in clearing identities %s", err)
+		}
+	}()
 	var allRes []storage.Result
 	for _, e := range []string{
 		"bitnitu@gmail.com",
@@ -159,7 +171,12 @@ func TestGetIdentityWithAttr(t *testing.T) {
 	if err != nil {
 		t.Fatalf("cannot connect to datasource %s", err)
 	}
-	defer coll.Truncate(context.Background())
+	defer func() {
+		err := ds.ClearIdentities()
+		if err != nil {
+			t.Fatalf("error in clearing identities %s", err)
+		}
+	}()
 	var allRes []storage.Result
 	for _, e := range []string{
 		"bitnitu@gmail.com",
@@ -199,7 +216,12 @@ func TestDeleteIdentity(t *testing.T) {
 	if err != nil {
 		t.Fatalf("cannot connect to datasource %s", err)
 	}
-	defer coll.Truncate(context.Background())
+	defer func() {
+		err := ds.ClearIdentities()
+		if err != nil {
+			t.Fatalf("error in clearing identities %s", err)
+		}
+	}()
 	res, err := ds.CreateIdentity(&identity.NewIdentityAttributes{
 		Identifier: "hello@gmail.com",
 		Provider:   "google",
