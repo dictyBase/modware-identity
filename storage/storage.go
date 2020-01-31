@@ -13,6 +13,7 @@ type DataSource interface {
 	GetProviderIdentity(*identity.IdentityProviderReq) (Result, error)
 	CreateIdentity(*identity.NewIdentityAttributes) (Result, error)
 	DeleteIdentity(*jsonapi.IdRequest) (bool, error)
+	ClearIdentities() error
 }
 
 type Result interface {
