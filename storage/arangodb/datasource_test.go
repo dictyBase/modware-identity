@@ -70,7 +70,7 @@ func TestCreateIdentity(t *testing.T) {
 		UserId:     20,
 	})
 	if err != nil {
-		t.Fatalf("could not create new identity", err)
+		t.Fatalf("could not create new identity %s", err)
 	}
 	if res.GetId() <= 1 {
 		t.Fatalf("expected id does not match %d", res.GetId())
@@ -132,13 +132,13 @@ func TestGetIdentity(t *testing.T) {
 	} {
 		r, err := ds.CreateIdentity(newIdentity(e))
 		if err != nil {
-			t.Fatal("could not create new identity with %s", e)
+			t.Fatalf("could not create new identity with %s", e)
 		}
 		allRes = append(allRes, r)
 	}
 	nres, err := ds.GetIdentity(&jsonapi.IdRequest{Id: allRes[0].GetId()})
 	if err != nil {
-		t.Fatalf("cannot retrieve identity with id %s %s", allRes[0].GetId(), err)
+		t.Fatalf("cannot retrieve identity with id %d %s", allRes[0].GetId(), err)
 	}
 	attr1 := allRes[0].GetAttributes()
 	nattr1 := nres.GetAttributes()
@@ -173,7 +173,7 @@ func TestGetIdentityWithAttr(t *testing.T) {
 	} {
 		r, err := ds.CreateIdentity(newIdentity(e))
 		if err != nil {
-			t.Fatal("could not create new identity with %s", e)
+			t.Fatalf("could not create new identity with %s", e)
 		}
 		allRes = append(allRes, r)
 	}
@@ -212,11 +212,11 @@ func TestDeleteIdentity(t *testing.T) {
 		UserId:     20,
 	})
 	if err != nil {
-		t.Fatalf("could not create new identity", err)
+		t.Fatalf("could not create new identity %s", err)
 	}
 	done, err := ds.DeleteIdentity(&jsonapi.IdRequest{Id: res.GetId()})
 	if err != nil {
-		t.Fatalf("cannot delete identity with id %d %s", res.GetId, err)
+		t.Fatalf("cannot delete identity with id %d %s", res.GetId(), err)
 	}
 	if done == false {
 		t.Fatal("cannot delete identity")
