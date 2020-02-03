@@ -116,7 +116,7 @@ func RunServer(c *cli.Context) error {
 	// create the cmux object that will multiplex 2 protocols on same port
 	m := cmux.New(lis)
 	// match gRPC requests, otherwise regular HTTP requests
-	// see https://github.com/grpc/grpc-go/issues/2636 for why we need to use MatchWithWriters()
+	// see https://github.com/grpc/grpc-go/issues/2636#issuecomment-472209287 for why we need to use MatchWithWriters()
 	grpcL := m.MatchWithWriters(cmux.HTTP2MatchHeaderFieldSendSettings("content-type", "application/grpc"))
 	httpL := m.Match(cmux.Any())
 
