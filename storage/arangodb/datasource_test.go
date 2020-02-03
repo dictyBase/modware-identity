@@ -42,11 +42,15 @@ func TestMain(m *testing.M) {
 	coll := "test-collection"
 	_, err = dbh.CreateCollection(coll, &driver.CreateCollectionOptions{})
 	if err != nil {
-		dbh.Drop()
+		if err := dbh.Drop(); err != nil {
+			log.Printf("error in dropping database %s", err)
+		}
 		log.Fatalf("unable to create collection %s %s", coll, err)
 	}
 	code := m.Run()
-	dbh.Drop()
+	if err := dbh.Drop(); err != nil {
+		log.Printf("error in dropping database %s", err)
+	}
 	os.Exit(code)
 }
 
