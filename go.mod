@@ -4,7 +4,7 @@ require (
 	github.com/arangodb/go-driver v0.0.0-20191107140416-095263e288cd
 	github.com/cenkalti/backoff v0.0.0-20160427170756-c29158af3181 // indirect
 	github.com/dictyBase/apihelpers v0.0.0-20181218160245-dce81474776f
-	github.com/dictyBase/arangomanager v0.1.2
+	github.com/dictyBase/arangomanager v0.2.0
 	github.com/dictyBase/go-genproto v0.0.0-20190731000734-94f1379d56f1
 	github.com/garyburd/redigo v0.0.0-20160525165706-b8dc90050f24 // indirect
 	github.com/go-chi/cors v1.0.0
