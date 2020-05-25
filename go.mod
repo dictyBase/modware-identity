@@ -11,7 +11,7 @@ require (
 	github.com/go-sql-driver/mysql v1.4.1 // indirect
 	github.com/golang/protobuf v1.3.3
 	github.com/grpc-ecosystem/go-grpc-middleware v1.2.0
-	github.com/grpc-ecosystem/grpc-gateway v1.7.0
+	github.com/grpc-ecosystem/grpc-gateway v1.14.6
 	github.com/jmoiron/sqlx v0.0.0-20160524032753-a7f971fe8ea8 // indirect
 	github.com/kr/pretty v0.1.0 // indirect
 	github.com/lib/pq v0.0.0-20160511035104-ee1442bda7bd // indirect
@@ -32,12 +32,9 @@ require (
 	github.com/satori/go.uuid v1.0.0 // indirect
 	github.com/sirupsen/logrus v1.5.0
 	github.com/soheilhy/cmux v0.1.4
-	golang.org/x/lint v0.0.0-20190313153728-d0100b6bd8b3 // indirect
-	golang.org/x/tools v0.0.0-20190524140312-2c0ae7006135 // indirect
 	google.golang.org/appengine v1.5.0 // indirect
-	google.golang.org/grpc v1.27.1
+	google.golang.org/grpc v1.29.1
 	gopkg.in/check.v1 v1.0.0-20180628173108-788fd7840127 // indirect
 	gopkg.in/mgutz/dat.v2 v2.0.0-20171004160617-d76e4f81c4ef // indirect
 	gopkg.in/urfave/cli.v1 v1.20.0
-	honnef.co/go/tools v0.0.0-20190523083050-ea95bdfd59fc // indirect
 )
