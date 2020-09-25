@@ -5,15 +5,14 @@ require (
 	github.com/cenkalti/backoff v0.0.0-20160427170756-c29158af3181 // indirect
 	github.com/dictyBase/apihelpers v0.0.0-20181218160245-dce81474776f
 	github.com/dictyBase/arangomanager v0.2.0
-	github.com/dictyBase/go-genproto v0.0.0-20190731000734-94f1379d56f1
+	github.com/dictyBase/go-genproto v0.0.0-20200122001226-b1ccbdee4aa3
 	github.com/garyburd/redigo v0.0.0-20160525165706-b8dc90050f24 // indirect
 	github.com/go-chi/cors v1.0.0
 	github.com/go-sql-driver/mysql v1.4.1 // indirect
-	github.com/golang/protobuf v1.3.3
+	github.com/golang/protobuf v1.4.2
 	github.com/grpc-ecosystem/go-grpc-middleware v1.2.2
-	github.com/grpc-ecosystem/grpc-gateway v1.7.0
+	github.com/grpc-ecosystem/grpc-gateway v1.11.3
 	github.com/jmoiron/sqlx v0.0.0-20160524032753-a7f971fe8ea8 // indirect
-	github.com/kr/pretty v0.1.0 // indirect
 	github.com/lib/pq v0.0.0-20160511035104-ee1442bda7bd // indirect
 	github.com/mattn/go-colorable v0.0.9 // indirect
 	github.com/mattn/go-isatty v0.0.3 // indirect
@@ -23,7 +22,6 @@ require (
 	github.com/mgutz/logxi v0.0.0-20160416165908-7d364cab682d // indirect
 	github.com/mgutz/str v1.2.0 // indirect
 	github.com/mgutz/to v1.0.0 // indirect
-	github.com/mwitkow/go-proto-validators v0.0.0-20170220212302-a55ca57f374a // indirect
 	github.com/nats-io/gnatsd v1.4.1 // indirect
 	github.com/nats-io/go-nats v1.7.2
 	github.com/nats-io/nkeys v0.1.3 // indirect
@@ -33,9 +31,8 @@ require (
 	github.com/sirupsen/logrus v1.6.0
 	github.com/soheilhy/cmux v0.1.4
 	github.com/urfave/cli v1.22.4
-	google.golang.org/appengine v1.5.0 // indirect
 	google.golang.org/grpc v1.32.0
-	gopkg.in/check.v1 v1.0.0-20180628173108-788fd7840127 // indirect
+	google.golang.org/grpc/examples v0.0.0-20200925170654-e6c98a478e62 // indirect
 	gopkg.in/mgutz/dat.v2 v2.0.0-20171004160617-d76e4f81c4ef // indirect
 	gopkg.in/stretchr/testify.v1 v1.2.2 // indirect
 )
