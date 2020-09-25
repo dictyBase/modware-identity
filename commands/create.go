@@ -7,8 +7,8 @@ import (
 	"github.com/dictyBase/go-genproto/dictybaseapis/api/jsonapi"
 	"github.com/dictyBase/go-genproto/dictybaseapis/identity"
 	"github.com/dictyBase/go-genproto/dictybaseapis/user"
+	"github.com/urfave/cli"
 	"google.golang.org/grpc"
-	cli "gopkg.in/urfave/cli.v1"
 )
 
 func CreateIdentity(c *cli.Context) error {

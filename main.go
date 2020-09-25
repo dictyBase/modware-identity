@@ -6,7 +6,7 @@ import (
 	"github.com/dictyBase/modware-identity/commands"
 	"github.com/dictyBase/modware-identity/validate"
 
-	cli "gopkg.in/urfave/cli.v1"
+	"github.com/urfave/cli"
 )
 
 func main() {

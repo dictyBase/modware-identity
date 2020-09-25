@@ -16,16 +16,16 @@ import (
 	"github.com/dictyBase/modware-identity/storage"
 	"github.com/dictyBase/modware-identity/storage/arangodb"
 	"github.com/go-chi/cors"
-	"github.com/grpc-ecosystem/go-grpc-middleware"
-	"github.com/grpc-ecosystem/go-grpc-middleware/logging/logrus"
-	"github.com/grpc-ecosystem/go-grpc-middleware/tags"
+	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"
+	grpc_logrus "github.com/grpc-ecosystem/go-grpc-middleware/logging/logrus"
+	grpc_ctxtags "github.com/grpc-ecosystem/go-grpc-middleware/tags"
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	gnats "github.com/nats-io/go-nats"
 	"github.com/sirupsen/logrus"
 	"github.com/soheilhy/cmux"
+	"github.com/urfave/cli"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
-	"gopkg.in/urfave/cli.v1"
 )
 
 func RunServer(c *cli.Context) error {
