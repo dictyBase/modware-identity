@@ -28,7 +28,7 @@ require (
 	github.com/nats-io/nuid v1.0.0 // indirect
 	github.com/pmylund/go-cache v2.1.0+incompatible // indirect
 	github.com/satori/go.uuid v1.0.0 // indirect
-	github.com/sirupsen/logrus v1.6.0
+	github.com/sirupsen/logrus v1.7.0
 	github.com/soheilhy/cmux v0.1.4
 	github.com/urfave/cli v1.22.4
 	google.golang.org/grpc v1.32.0
