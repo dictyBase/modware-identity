@@ -11,7 +11,7 @@ require (
 	github.com/go-sql-driver/mysql v1.4.1 // indirect
 	github.com/golang/protobuf v1.4.2
 	github.com/grpc-ecosystem/go-grpc-middleware v1.2.2
-	github.com/grpc-ecosystem/grpc-gateway v1.15.0
+	github.com/grpc-ecosystem/grpc-gateway v1.15.2
 	github.com/jmoiron/sqlx v0.0.0-20160524032753-a7f971fe8ea8 // indirect
 	github.com/lib/pq v0.0.0-20160511035104-ee1442bda7bd // indirect
 	github.com/mattn/go-colorable v0.0.9 // indirect
