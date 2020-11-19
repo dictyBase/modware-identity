@@ -1,27 +1,10 @@
 # modware-identity
 
 [![License](https://img.shields.io/badge/License-BSD%202--Clause-blue.svg)](LICENSE)  
-![GitHub action](https://github.com/dictyBase/modware-identity/workflows/Continuous%integration/badge.svg)
+![Continuous integration](https://github.com/dictyBase/modware-identity/workflows/Continuous%integration/badge.svg)
 [![codecov](https://codecov.io/gh/dictyBase/modware-identity/branch/develop/graph/badge.svg)](https://codecov.io/gh/dictyBase/modware-identity)  
-[![Technical debt](https://badgen.net/codeclimate/tech-debt/dictyBase/modware-identity)](https://codeclimate.com/github/dictyBase/modware-identity/trends/technical_debt)
-[![Issues](https://badgen.net/codeclimate/issues/dictyBase/modware-identity)](https://codeclimate.com/github/dictyBase/modware-identity/issues)
 [![Maintainability](https://api.codeclimate.com/v1/badges/21ed283a6186cfa3d003/maintainability)](https://codeclimate.com/github/dictyBase/modware-identity/maintainability)  
-![Issues](https://badgen.net/github/issues/dictyBase/modware-identity)
-![Open Issues](https://badgen.net/github/open-issues/dictyBase/modware-identity)
-![Closed Issues](https://badgen.net/github/closed-issues/dictyBase/modware-identity)  
-![Total PRS](https://badgen.net/github/prs/dictyBase/modware-identity)
-![Open PRS](https://badgen.net/github/open-prs/dictyBase/modware-identity)
-![Closed PRS](https://badgen.net/github/closed-prs/dictyBase/modware-identity)
-![Merged PRS](https://badgen.net/github/merged-prs/dictyBase/modware-identity)  
-![Commits](https://badgen.net/github/commits/dictyBase/modware-identity/develop)
 ![Last commit](https://badgen.net/github/last-commit/dictyBase/modware-identity/develop)
-![Branches](https://badgen.net/github/branches/dictyBase/modware-identity)
-![Tags](https://badgen.net/github/tags/dictyBase/modware-identity/?color=cyan)  
-![GitHub repo size](https://img.shields.io/github/repo-size/dictyBase/modware-identity?style=plastic)
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/dictyBase/modware-identity?style=plastic)
-[![Lines of Code](https://badgen.net/codeclimate/loc/dictyBase/modware-identity)](https://codeclimate.com/github/dictyBase/modware-identity/code)  
-[![Funding](https://badgen.net/badge/NIGMS/Rex%20L%20Chisholm,dictyBase/yellow?list=|)](https://projectreporter.nih.gov/project_info_description.cfm?aid=9476993)
-[![Funding](https://badgen.net/badge/NIGMS/Rex%20L%20Chisholm,DSC/yellow?list=|)](https://projectreporter.nih.gov/project_info_description.cfm?aid=9438930)
 
 [dictyBase](http://dictybase.org) **API** server to manage identity authorization
 from third party providers (ORCID, Google, LinkedIn). The API server supports both gRPC
@@ -115,3 +98,17 @@ OPTIONS:
    --provider value            Name of provider who provides the identifier
    --email value               An user email(not the identity provider's email) that will be tied to the identifier
 ```
+# Misc badges
+![Issues](https://badgen.net/github/issues/dictyBase/modware-identity)
+![Open Issues](https://badgen.net/github/open-issues/dictyBase/modware-identity)
+![Closed Issues](https://badgen.net/github/closed-issues/dictyBase/modware-identity)  
+![Total PRS](https://badgen.net/github/prs/dictyBase/modware-identity)
+![Open PRS](https://badgen.net/github/open-prs/dictyBase/modware-identity)
+![Closed PRS](https://badgen.net/github/closed-prs/dictyBase/modware-identity)
+![Merged PRS](https://badgen.net/github/merged-prs/dictyBase/modware-identity)  
+![Commits](https://badgen.net/github/commits/dictyBase/modware-identity/develop)
+![Branches](https://badgen.net/github/branches/dictyBase/modware-identity)
+![Tags](https://badgen.net/github/tags/dictyBase/modware-identity/?color=cyan)  
+![GitHub repo size](https://img.shields.io/github/repo-size/dictyBase/modware-identity?style=plastic)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/dictyBase/modware-identity?style=plastic)
+[![Lines of Code](https://badgen.net/codeclimate/loc/dictyBase/modware-identity)](https://codeclimate.com/github/dictyBase/modware-identity/code)  
