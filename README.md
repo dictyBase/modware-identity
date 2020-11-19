@@ -2,9 +2,10 @@
 
 [![License](https://img.shields.io/badge/License-BSD%202--Clause-blue.svg)](LICENSE)  
 ![Continuous integration](https://github.com/dictyBase/modware-identity/workflows/Continuous%integration/badge.svg)
-[![codecov](https://codecov.io/gh/dictyBase/modware-identity/branch/develop/graph/badge.svg)](https://codecov.io/gh/dictyBase/modware-identity)  
+[![codecov](https://codecov.io/gh/dictyBase/modware-identity/branch/develop/graph/badge.svg)](https://codecov.io/gh/dictyBase/modware-identity)
 [![Maintainability](https://api.codeclimate.com/v1/badges/21ed283a6186cfa3d003/maintainability)](https://codeclimate.com/github/dictyBase/modware-identity/maintainability)  
-![Last commit](https://badgen.net/github/last-commit/dictyBase/modware-identity/develop)
+![Last commit](https://badgen.net/github/last-commit/dictyBase/modware-identity/develop)   
+[![Funding](https://badgen.net/badge/Funding/Rex%20L%20Chisholm,dictyBase,DCR/yellow?list=|)](https://projectreporter.nih.gov/project_info_description.cfm?aid=10024726&icde=0)
 
 [dictyBase](http://dictybase.org) **API** server to manage identity authorization
 from third party providers (ORCID, Google, LinkedIn). The API server supports both gRPC
