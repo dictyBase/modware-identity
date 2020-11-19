@@ -30,7 +30,7 @@ require (
 	github.com/satori/go.uuid v1.0.0 // indirect
 	github.com/sirupsen/logrus v1.7.0
 	github.com/soheilhy/cmux v0.1.4
-	github.com/urfave/cli v1.22.4
+	github.com/urfave/cli v1.22.5
 	google.golang.org/grpc v1.33.1
 	google.golang.org/grpc/examples v0.0.0-20200925170654-e6c98a478e62 // indirect
 	gopkg.in/mgutz/dat.v2 v2.0.0-20171004160617-d76e4f81c4ef // indirect
