@@ -1,7 +1,7 @@
 # modware-identity
 
 [![License](https://img.shields.io/badge/License-BSD%202--Clause-blue.svg)](LICENSE)  
-![Continuous integration](https://github.com/dictyBase/modware-identity/workflows/Continuous%integration/badge.svg)
+![Continuous integration](https://github.com/dictyBase/modware-identity/workflows/Continuous%20integration/badge.svg)
 [![codecov](https://codecov.io/gh/dictyBase/modware-identity/branch/develop/graph/badge.svg)](https://codecov.io/gh/dictyBase/modware-identity)
 [![Maintainability](https://api.codeclimate.com/v1/badges/21ed283a6186cfa3d003/maintainability)](https://codeclimate.com/github/dictyBase/modware-identity/maintainability)  
 ![Last commit](https://badgen.net/github/last-commit/dictyBase/modware-identity/develop)   
