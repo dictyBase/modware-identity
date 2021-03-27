@@ -10,6 +10,7 @@ require (
 	github.com/go-chi/cors v1.1.1
 	github.com/go-sql-driver/mysql v1.4.1 // indirect
 	github.com/golang/protobuf v1.4.3
+	github.com/google/go-cmp v0.5.1 // indirect
 	github.com/grpc-ecosystem/go-grpc-middleware v1.2.2
 	github.com/grpc-ecosystem/grpc-gateway v1.16.0
 	github.com/jmoiron/sqlx v0.0.0-20160524032753-a7f971fe8ea8 // indirect
@@ -29,10 +30,11 @@ require (
 	github.com/pmylund/go-cache v2.1.0+incompatible // indirect
 	github.com/satori/go.uuid v1.0.0 // indirect
 	github.com/sirupsen/logrus v1.8.1
-	github.com/soheilhy/cmux v0.1.4
+	github.com/soheilhy/cmux v0.1.5
 	github.com/urfave/cli v1.22.5
+	google.golang.org/appengine v1.6.6 // indirect
+	google.golang.org/genproto v0.0.0-20200806141610-86f49bd18e98 // indirect
 	google.golang.org/grpc v1.36.0
-	google.golang.org/grpc/examples v0.0.0-20200925170654-e6c98a478e62 // indirect
 	gopkg.in/mgutz/dat.v2 v2.0.0-20171004160617-d76e4f81c4ef // indirect
 	gopkg.in/stretchr/testify.v1 v1.2.2 // indirect
 )
