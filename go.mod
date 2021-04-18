@@ -9,8 +9,7 @@ require (
 	github.com/garyburd/redigo v0.0.0-20160525165706-b8dc90050f24 // indirect
 	github.com/go-chi/cors v1.2.0
 	github.com/go-sql-driver/mysql v1.4.1 // indirect
-	github.com/golang/protobuf v1.4.3
-	github.com/google/go-cmp v0.5.1 // indirect
+	github.com/golang/protobuf v1.5.2
 	github.com/grpc-ecosystem/go-grpc-middleware v1.2.2
 	github.com/grpc-ecosystem/grpc-gateway v1.16.0
 	github.com/jmoiron/sqlx v0.0.0-20160524032753-a7f971fe8ea8 // indirect
