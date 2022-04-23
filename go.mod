@@ -30,7 +30,7 @@ require (
 	github.com/satori/go.uuid v1.0.0 // indirect
 	github.com/sirupsen/logrus v1.8.1
 	github.com/soheilhy/cmux v0.1.5
-	github.com/urfave/cli v1.22.5
+	github.com/urfave/cli v1.22.7
 	google.golang.org/appengine v1.6.6 // indirect
 	google.golang.org/genproto v0.0.0-20200806141610-86f49bd18e98 // indirect
 	google.golang.org/grpc v1.37.0
