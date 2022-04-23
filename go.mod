@@ -7,7 +7,7 @@ require (
 	github.com/dictyBase/arangomanager v0.2.4
 	github.com/dictyBase/go-genproto v0.0.0-20200122001226-b1ccbdee4aa3
 	github.com/garyburd/redigo v0.0.0-20160525165706-b8dc90050f24 // indirect
-	github.com/go-chi/cors v1.2.0
+	github.com/go-chi/cors v1.2.1
 	github.com/go-sql-driver/mysql v1.4.1 // indirect
 	github.com/golang/protobuf v1.5.2
 	github.com/grpc-ecosystem/go-grpc-middleware v1.2.2
