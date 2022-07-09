@@ -1,10 +1,10 @@
 module github.com/dictyBase/modware-identity
 
 require (
-	github.com/arangodb/go-driver v0.0.0-20201106193344-56ae8fd24510
+	github.com/arangodb/go-driver v0.0.0-20210304082257-d7e0ea043b7f
 	github.com/cenkalti/backoff v0.0.0-20160427170756-c29158af3181 // indirect
 	github.com/dictyBase/apihelpers v0.0.0-20181218160245-dce81474776f
-	github.com/dictyBase/arangomanager v0.2.4
+	github.com/dictyBase/arangomanager v0.3.2
 	github.com/dictyBase/go-genproto v0.0.0-20200122001226-b1ccbdee4aa3
 	github.com/garyburd/redigo v0.0.0-20160525165706-b8dc90050f24 // indirect
 	github.com/go-chi/cors v1.2.0
@@ -30,7 +30,7 @@ require (
 	github.com/satori/go.uuid v1.0.0 // indirect
 	github.com/sirupsen/logrus v1.8.1
 	github.com/soheilhy/cmux v0.1.5
-	github.com/urfave/cli v1.22.5
+	github.com/urfave/cli v1.22.9
 	google.golang.org/appengine v1.6.6 // indirect
 	google.golang.org/genproto v0.0.0-20200806141610-86f49bd18e98 // indirect
 	google.golang.org/grpc v1.37.0
